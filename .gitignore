@@ -1,0 +1,13 @@
+
+bin
+obj
+
+*.db
+
+packages/*
+
+.vs/*
+
+*.v2
+*.sou
+
