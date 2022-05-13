@@ -27,6 +27,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(Pagination<ProductToReturnDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetProducts([FromQuery] ProductSpecParams productParams) {
 
             var spec = new ProductWithTypesAndBrandsSpecification(productParams);
