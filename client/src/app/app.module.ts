@@ -10,6 +10,7 @@ import { HomeModule } from './home/home.module';
 import { ShopRoutingModule } from './shop/shop-routing.module';
 import { RouterModule } from '@angular/router';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
+import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 
 
 
@@ -27,7 +28,8 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
     HomeModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

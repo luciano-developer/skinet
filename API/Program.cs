@@ -19,7 +19,7 @@ builder.Services.AddSwaggerDocumentation();
 
 builder.Services.AddCors(opt => {
     opt.AddPolicy("CorsPolicy", policy => {
-        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200", "http://localhost:4200");
     });
 
 });
@@ -50,7 +50,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseRouting();
 app.UseStaticFiles();
