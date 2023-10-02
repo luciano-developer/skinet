@@ -7,17 +7,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
-import { ShopRoutingModule } from './shop/shop-routing.module';
 import { RouterModule } from '@angular/router';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
-
-
+import { BasketModule } from './basket/basket.module';
+import { CheckoutModule } from './checkout/checkout.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,12 +22,14 @@ import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
     RouterModule,
     HttpClientModule,
     CoreModule,
-    HomeModule
+    HomeModule,
+    BasketModule,
+    CheckoutModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

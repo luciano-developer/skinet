@@ -1,0 +1,154 @@
+<div class="container">
+    <div *ngIf="(basketService.basketSource$ | async) === null">
+        <p>There are no items in your basket</p>
+    </div>
+</div>
+<ng-container *ngIf="(basketService.basketSource$ | async) as Basket">
+
+    <div class="container h-100 py-5">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="table-responsive">
+                    <table class="table caption-top">
+                        <caption class="h5">Shopping bag</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <!-- <th scope="col" class="h5">Shopping bag</th> -->
+                                <!-- <th scope="col">Quantity</th>
+                                <th scope="col">Price</th> -->
+                                <!-- <th scope="col">Total</th>
+                                <th scope="col">Remove</th> -->
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of basketService.getCurrentBasketValue().items">
+                            <tr>
+                                <th class="border-top border-bottom-0" scope="row">
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{item.pictureUrl}}" class="img-fluid rounded-3" style="width: 120px;"
+                                            alt="Product">
+                                        <div class="flex-column ms-4">
+                                            <p class="mb-2">
+                                                <a [routerLink]="['/shop', item.id]">
+                                                    {{item.productName}}
+                                                </a>
+                                            </p>
+                                            <p class="mb-0">
+                                                <small class="text-muted fst-italic">Type: {{item.type}}</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </th>
+                                <td class="align-middle border-top border-bottom-0">
+                                    <div class="d-flex flex-row">
+                                        <button class="btn btn-link px-2" (click)="removeItem(item.id,1)">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                        <input id="form1" min="0" name="quantity" value="{{item.quantity}}"
+                                            type="number" class="form-control form-control-sm" style="width: 50px;" />
+
+                                        <button class="btn btn-link px-2" (click)="incrementQuantity(item)">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="align-middle border-top border-bottom-0">
+                                    <p class="mb-0">{{item.price | currency}}</p>
+                                </td>
+                                <!-- <td class="align-middle">
+                                    <p class="mb-0">{{item.price * item.quantity | currency}}</p>
+                                </td> -->
+                                <td class="align-middle border-top border-bottom-0">
+                                    <p class="mb-0 text-danger">
+                                        <i class="fa fa-trash" style="font-size: 2em; cursor: pointer;"
+                                            (click)="removeItem(item.id, item.quantity)"></i>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <app-order-totals></app-order-totals>
+            <!-- <div class="col-sm-12">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{item.pictureUrl}}" class="img-fluid rounded-start" alt="..." width="200px">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{item.productName}}</h5>
+                                <p class="card-text">
+                                    <small class="text-muted fst-italic">Type: {{item.type}}</small>
+                                </p>
+                                <p class="card-text">
+                                    Price: {{item.price | currency}}
+                                    Quantity: {{item.quantity}}
+                                </p>
+                                <h5 class="card-title">Price: {{item.price | currency}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <!-- <div class="row m-3" *ngFor="let item of basketService.getCurrentBasketValue().items">
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="row g-0" style="max-width: 540px;">
+                        <div class="col-md-4">
+                            <img src="{{item.pictureUrl}}" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body d-grid align-items-center">
+                                <h5 class="card-title">PRODUCT</h5>
+                                <p class="card-text">{{item.productName}}</p>
+                                <p class="card-text"><small class="text-muted">Type: {{item.type}}</small></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="card" style="height: 132px;">
+                    <div class="card-body d-grid align-items-center">
+                        <h5 class="card-title text-center">PRICE</h5>
+                        <p class="card-text text-center">{{item.price | currency}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">QUANTITY</h5>
+                        <p class="card-text text-center">{{item.quantity}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">TOTAL</h5>
+                        <p class="card-text text-center">{{(item.price * item.quantity) | currency}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">REMOVE</h5>
+                        <p class="card-text text-center text-danger">
+                            <i class="fa fa-trash" style="font-size: 2em; cursor: pointer;"></i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+</ng-container>

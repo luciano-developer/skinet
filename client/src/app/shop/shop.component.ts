@@ -15,8 +15,8 @@ export class ShopComponent implements OnInit {
 
   @ViewChild('search', { static: false }) searchTerm: ElementRef;
   products: IProduct[];
-  brands: IBrand[];
-  types: IProductType[];
+  brands: IBrand[] = [];
+  types: IProductType[] = [];
   shopParams = new ShopParams();
   totalCounts = 0;
 
@@ -50,21 +50,25 @@ export class ShopComponent implements OnInit {
   }
 
   getBrands() {
-    this.shopService.getBrands().subscribe((response: IBrand[]) => {
-      this.brands = [{ id: 0, name: 'All' }, ...response];
-    }, error => {
-      console.log(error);
-
-    });
+    this.shopService.getBrands().subscribe(
+      {
+        next: (response: IBrand[]) => {
+          this.brands = [{ id: 0, name: 'All' }, ...response];
+        },
+        error: (err) => console.log(err)
+      }
+    );
   }
 
   getTypes() {
-    this.shopService.getTypes().subscribe((response: IProductType[]) => {
-      this.types = [{ id: 0, name: 'All' }, ...response];
-    }, error => {
-      console.log(error);
-
-    });
+    this.shopService.getTypes().subscribe(
+      {
+        next: (response: IProductType[]) => {
+          this.types = [{ id: 0, name: 'All' }, ...response];
+        },
+        error: err => console.log(err)
+      }
+    );
   }
 
   onBrandSelected(brandId: number) {
