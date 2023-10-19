@@ -10,8 +10,6 @@ import { HomeModule } from './home/home.module';
 import { RouterModule } from '@angular/router';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
-import { BasketModule } from './basket/basket.module';
-import { CheckoutModule } from './checkout/checkout.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,8 +21,6 @@ import { CheckoutModule } from './checkout/checkout.module';
     HttpClientModule,
     CoreModule,
     HomeModule,
-    BasketModule,
-    CheckoutModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

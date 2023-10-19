@@ -1,5 +1,6 @@
 ﻿using API.Errors;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -12,9 +13,17 @@ namespace API.Controllers
         {
             this.context = context;
         }
-        
+
+        [HttpGet("testauth")]
+        [Authorize]
+        public ActionResult<string> GetSecretText()
+        {
+            return "secret stuff";
+        }
+
         [HttpGet("notfound")]
-        public IActionResult GetNotFoundRequest() {
+        public IActionResult GetNotFoundRequest()
+        {
 
             var thing = context.Products.Find(42);
 
@@ -33,20 +42,20 @@ namespace API.Controllers
             var thing = context.Products?.Find(42);
 
             var thingToReturn = thing.ToString();
-             
-           return Ok();           
+
+            return Ok();
 
         }
 
         [HttpGet("badrequest")]
         public IActionResult GetBadRequest()
         {
-           return BadRequest(new ApiResponse(400));
+            return BadRequest(new ApiResponse(400));
         }
 
         [HttpGet("badrequest/{id}")]
         public IActionResult GetNotFoundRequest(int id)
-        {   
+        {
             return Ok();
         }
     }
