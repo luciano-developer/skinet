@@ -1,0 +1,30 @@
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-md-6 offset-lg-1 col-lg-4 order-lg-2 order-1">
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <app-text-input [formControl]="registerForm.controls['displayName']"
+                            [label]="'Display Name'"></app-text-input>
+                    </div>
+                    <div class="col-12">
+                        <app-text-input [formControl]="registerForm.controls['email']"
+                            [label]="'Email Address'"></app-text-input>
+                    </div>
+                    <div class="col-12">
+                        <app-text-input [formControl]="registerForm.controls['password']" [type]="'password'"
+                            [label]="'Password'"></app-text-input>
+
+                    </div>
+                    <ul class="text-danger list-unstyled" *ngIf="errors">
+                        <li *ngFor="let error of errors">{{error}}</li>
+                    </ul>
+                    <div class="col-12 d-grid"> <button [disabled]="registerForm.invalid" type="submit"
+                            class="btn btn-primary">Register</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<!-- <div class="position-absolute top-50 start-50 translate-middle d-flex flex-column justify-content-center mt-5">
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary mt-3">Sig in</button>
+    </div>
+</div> -->
+<div class="container mt-5">
+    <!-- row -->
+    <div class="row justify-content-center align-items-center">
+
+        <!-- col -->
+        <div class="col-12 col-md-6 offset-lg-1 col-lg-4 order-lg-2 order-1">
+            <!-- <div class="mb-lg-9 mb-5">
+                <h1 class="mb-1 h2 fw-bold">Sign in </h1>
+                <p>Welcome! Enter your email to get started.</p>
+            </div> -->
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="row g-3">
+
+                    <div class="col-12">
+                        <app-text-input [formControl]="loginForm.controls['email']"
+                            [label]="'Email Address'"></app-text-input>
+                        <!-- <div class="form-floating mb-3">
+                            <input
+                                [class.is-invalid]="loginForm.get('email')?.touched && loginForm.get('email').invalid"
+                                [class.is-valid]="loginForm.get('email')?.touched && loginForm.get('email').valid"
+                                type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                                formControlName="email">
+                            <label for="floatingInput">Email address</label>
+                            <div *ngIf="loginForm.get('email')?.errors?.['required']" class="invalid-feedback">Please
+                                choose email </div>
+                            <div *ngIf="loginForm.get('email')?.errors?.['email']" class="invalid-feedback">Please
+                                choose email valid</div>
+                        </div> -->
+                    </div>
+                    <div class="col-12">
+                        <app-text-input [formControl]="loginForm.controls['password']" [type]="'password'"
+                            [label]="'Password'"></app-text-input>
+
+                        <!-- <div class="form-floating">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                                formControlName="password">
+                            <span><i id="passwordToggler" class="fa fa-eye-slash"></i></span>
+                            <label for="floatingPassword">Password</label>
+                        </div> -->
+
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <!-- form check -->
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <!-- label --> <label class="form-check-label" for="flexCheckDefault">
+                                Remember me
+                            </label>
+                        </div>
+                        <div> Forgot password? <a href="../pages/forgot-password.html">Reset It</a></div>
+                    </div>
+                    <!-- btn -->
+                    <div class="col-12 d-grid"> <button [disabled]="loginForm.invalid" type="submit"
+                            class="btn btn-primary">Sign In</button>
+                    </div>
+                    <!-- link -->
+                    <div>Don’t have an account? <a href="../pages/signup.html"> Sign Up</a></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

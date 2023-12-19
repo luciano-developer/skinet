@@ -10,13 +10,71 @@
     <a class="me-3 py-2 " href="/test-error">Errors</a>
   </nav>
   <div class="d-flex align-items-center">
-  <a [routerLink]="['/basket']"  class="position-relative">
+    <a [routerLink]="['/basket']" class="position-relative">
       <i class="fa fa-shopping-cart fa-2x me-5 text-dark"></i>
       <div *ngIf="(basketService.basketSource$ | async) as Basket" class="cart-no">
         {{getCount(basketService.getCurrentBasketValue().items)}}
       </div>
     </a>
-    <a class="btn btn-outline-secondary me-2">Login</a>
-    <a class="btn btn-outline-secondary me-3">Sign up</a>
+    <ng-container *ngIf="(accountService.currentUser$ | async) === null">
+      <a class="btn btn-outline-secondary me-2" [routerLink]="['/account/login']">Login</a>
+      <a class="btn btn-outline-secondary me-3" [routerLink]="['/account/register']">Sign up</a>
+
+      <button class="btn btn-lg btn-outline-primary mb-2 me-2" (click)="viewOrders(content)">Right position</button>
+      <ng-template #content let-offcanvas>
+        <div class="offcanvas-header">
+          <h4 class="offcanvas-title">Offcanvas title</h4>
+          <button type="button" class="btn-close" aria-label="Close"
+            (click)="offcanvas.dismiss('Cross click')"></button>
+        </div>
+        <div class="offcanvas-body">
+          <p>One fine body&hellip;</p>
+          <div class="text-end">
+            <button type="button" class="btn btn-outline-dark" (click)="offcanvas.close('Close click')">Close</button>
+          </div>
+        </div>
+      </ng-template>
+      <!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+        (click)="canvasShow()" aria-controls="offcanvasRight">Toggle right offcanvas</button>
+
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"
+        role="dialog" aria-modal="true">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+            (click)="canvasShow()"></button>
+        </div>
+        <div class="offcanvas-body">
+          ...
+        </div>
+      </div> -->
+
+    </ng-container>
+
+    <ng-container *ngIf="accountService.currentUser$ | async as user">
+      <div class="dropdown ms-3 me-5" style="cursor: pointer;" dropdown>
+        <a dropdownToggle class="dropdown-toggle">
+          <strong>Wellcome {{user.displayName}}</strong>
+        </a>
+        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right">
+          <li class="py-1">
+            <a [routerLink]="['/basket']" class="dropdown-item">
+              <i class="fa fa-shopping-cart me-3"></i>View basket
+            </a>
+          </li>
+          <li class="py-1">
+            <a [routerLink]="['/orders']" class="dropdown-item">
+              <i class="fa fa-history me-3"></i>View orders
+            </a>
+          </li>
+          <div class="drodown-divider"></div>
+          <li class="py-1">
+            <a (click)="logout()" class="dropdown-item">
+              <i class="fa fa-sign-out me-3"></i>Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </ng-container>
   </div>
 </div>
