@@ -35,7 +35,7 @@ export class RegisterComponent {
     ],
     password: [
       '',
-      [Validators.required, Validators.pattern(this.complexPassword)],
+      [Validators.required], //, Validators.pattern(this.complexPassword)],
     ],
   });
 

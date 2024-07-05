@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from '../account.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,17 +14,22 @@ export class LoginComponent {
     password: new FormControl('', Validators.required),
   });
 
-  /**
-   *
-   */
-  constructor(private accountService: AccountService) {}
+  returnUrl: string;
+
+  constructor(
+    private accountService: AccountService,
+    private activetedRoute: ActivatedRoute
+  ) {
+    this.returnUrl =
+      activetedRoute.snapshot.queryParams['returnUrl'] ?? '/shop';
+  }
 
   onSubmit() {
     console.log(this.loginForm.value);
 
     this.accountService.login(this.loginForm.value).subscribe({
       next: (response) => {
-        console.log(response);
+        //console.log(response);
       },
     });
   }
